@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='../static/tailwind.css') }}"
+    />
+    <script src="{{ url_for('static', path='../static/htmx.min.js') }}"></script>
+    <title>BELATED HAPPY BIRTHDAY!</title>
+  </head>
+  <body
+    class="bg-oldlace font-custom m-0 flex h-screen items-center justify-center"
+  >
+    <div
+      class="bg-cornsilk shadow-custom flex w-xs flex-col items-center gap-y-2 rounded-xl px-10 py-12 text-center uppercase"
+    >
+      <h1 class="text-8xl font-bold">if</h1>
+      <h2 class="text-4xl font-bold">you</h2>
+      <h3 class="font-bold">can read</h3>
+      <p>the last words</p>
+      <p>on this birthday card</p>
+      <p class="text-xs">
+        then you are not that old <span class="text-red-600">yet</span>
+      </p>
+      <a
+        id="play-audio"
+        hx-get="/get-audio"
+        hx-trigger="click"
+        hx-target="#audio-container"
+        hx-swap="innerHTML"
+        class="flex items-center justify-center gap-x-0.5"
+      >
+        <img
+          src="{{ url_for('static', path='../static/glasses.png') }}"
+          alt="glasses"
+          class="mt-5 w-24 cursor-pointer mix-blend-multiply"
+        />
+        <img
+          src="{{ url_for('static', path='../static/glasses.png') }}"
+          alt="glasses"
+          class="mt-5 w-24 cursor-pointer mix-blend-multiply"
+        />
+        <img
+          src="{{ url_for('static', path='../static/glasses.png') }}"
+          alt="glasses"
+          class="mt-5 w-24 cursor-pointer mix-blend-multiply"
+        />
+      </a>
+      <div id="audio-container"></div>
+      <p class="text-smol normal-case">From your Bois</p>
+    </div>
+
+    <script>
+      htmx.config.selfRequestsOnly = false;
+    </script>
+  </body>
+</html>

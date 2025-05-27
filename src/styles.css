@@ -1,0 +1,10 @@
+@import "tailwindcss";
+@source "../templates/**/*.html";
+
+@theme {
+  --font-custom: "High Tower Text", "sans-serif";
+  --color-oldlace: #fdf6e3;
+  --color-cornsilk: #fff8dc;
+  --shadow-custom: 0 4px 20px rgba(0, 0, 0, 0.1);
+  --text-smol: 6.4px;
+}
