@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
+import uvicorn
 import yt_dlp
 
 app = FastAPI()
@@ -21,7 +22,7 @@ def get_audio_url(video_url):
         return info["url"]
 
 
-@app.get("/get-audio", response_class=HTMLResponse)
+@app.get("/this", response_class=HTMLResponse)
 async def get_audio():
     video_url = "https://www.youtube.com/watch?v=3BFTio5296w"
     audio_url = get_audio_url(video_url)
@@ -31,6 +32,4 @@ async def get_audio():
 
 
 if __name__ == "__main__":
-    import uvicorn
-
     uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)

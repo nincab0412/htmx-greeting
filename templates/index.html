@@ -8,52 +8,99 @@
       href="{{ url_for('static', path='../static/tailwind.css') }}"
     />
     <script src="{{ url_for('static', path='../static/htmx.min.js') }}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <title>BELATED HAPPY BIRTHDAY!</title>
   </head>
   <body
-    class="bg-oldlace font-custom m-0 flex h-screen items-center justify-center"
+    class="bg-oldlace font-custom m-0 flex h-screen flex-col items-center justify-center gap-y-4"
   >
+    <h1 class="pop invisible text-3xl capitalize">
+      belated happy birthday carl!
+    </h1>
     <div
       class="bg-cornsilk shadow-custom flex w-xs flex-col items-center gap-y-2 rounded-xl px-10 py-12 text-center uppercase"
     >
-      <h1 class="text-8xl font-bold">if</h1>
-      <h2 class="text-4xl font-bold">you</h2>
-      <h3 class="font-bold">can read</h3>
-      <p>the last words</p>
-      <p>on this birthday card</p>
-      <p class="text-xs">
-        then you are not that old <span class="text-red-600">yet</span>
-      </p>
+      {% set phrases = [ 
+        {"text": "if", "size": "text-8xl font-bold", "delay": "delay-[1s]"}, 
+        {"text": "you", "size": "text-4xl", "delay": "delay-[1.6s]"}, 
+        {"text": "can read", "size": "text-lg font-bold", "delay": "delay-[2.2s]"},
+        {"text": "the last words", "size": "text-base", "delay": "delay-[2.8s]"},
+        {"text": "on this birthday card", "size": "text-base", "delay": "delay-[3.4s]"},
+        {"text": "then you are not that old <span class=\"text-red-600\">yet</span>", "size": "text-xs", "delay": "delay-[4s]"} 
+      ] %} 
+      {% for phrase in phrases %}
+        <p
+          class="translate-y-5 opacity-0 transition-all duration-1000 ease-in {{ phrase.size }} {{ phrase.delay }}"
+        >
+          {{ phrase.text | safe }}
+        </p>
+      {% endfor %}
+
       <a
-        id="play-audio"
-        hx-get="/get-audio"
+        id="what"
+        hx-get="/this"
         hx-trigger="click"
-        hx-target="#audio-container"
+        hx-target="#hidden"
         hx-swap="innerHTML"
-        class="flex items-center justify-center gap-x-0.5"
+        onclick="document.querySelectorAll('.pop').forEach(img => img.classList.remove('invisible'))"
+        class="flex items-center justify-center gap-x-2.5"
       >
         <img
-          src="{{ url_for('static', path='../static/glasses.png') }}"
+          src="{{ url_for('static', path='../static/images/dance.gif') }}"
           alt="glasses"
-          class="mt-5 w-24 cursor-pointer mix-blend-multiply"
+          class="pop invisible mt-9 h-14 mix-blend-multiply"
         />
         <img
-          src="{{ url_for('static', path='../static/glasses.png') }}"
+          src="{{ url_for('static', path='../static/images/glasses.png') }}"
           alt="glasses"
-          class="mt-5 w-24 cursor-pointer mix-blend-multiply"
+          class="mt-5 w-24 translate-y-5 cursor-pointer opacity-0 mix-blend-multiply transition-all delay-[4s] duration-1000 ease-in"
         />
         <img
-          src="{{ url_for('static', path='../static/glasses.png') }}"
+          src="{{ url_for('static', path='../static/images/food.gif') }}"
           alt="glasses"
-          class="mt-5 w-24 cursor-pointer mix-blend-multiply"
+          class="pop invisible mt-9 h-14 mix-blend-multiply"
         />
       </a>
-      <div id="audio-container"></div>
-      <p class="text-smol normal-case">From your Bois</p>
+      <div id="hidden"></div>
+      <p
+        class="text-smol translate-y-5 normal-case opacity-0 transition-all delay-[4.8s] duration-1000 ease-in"
+      >
+        From your BXU Bois
+      </p>
     </div>
+
+    <div class="absolute inset-0 flex justify-between items-end pointer-events-none overflow-hidden" id="balloon-container">
+      {% for i in range(25) %}
+        <img src="{{ url_for('static', path='../static/images/thing.gif') }}"
+             class="balloon absolute -bottom-30 w-32 -z-30"
+             style="left: {{ (i * 4) }}vw;">
+      {% endfor %}
+    </div>
+
 
     <script>
       htmx.config.selfRequestsOnly = false;
+    </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".opacity-0").forEach((el) => {
+          el.classList.add("opacity-100");
+        });
+      });
+    </script>
+
+    <script>
+      gsap.to(".balloon", {
+        y: () => -window.outerHeight - Math.random() * 100, // Random floating height
+        x: "+=random(-50, 50)", // Small random left/right drift
+        scale: () => Math.random() * 0.5 + 0.75, // Random balloon size variation
+        duration: () => Math.random() * 4 + 5, // Different speeds
+        repeat: -1,
+        ease: "power1.inOut",
+        stagger: () => Math.random() * 2
+      });      
     </script>
   </body>
 </html>
