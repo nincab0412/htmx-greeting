@@ -16,10 +16,13 @@ async def index(request: Request):
 
 
 def get_audio_url(video_url):
-    ydl_opts = {"format": "bestaudio", "quiet": True}
-    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        info = ydl.extract_info(video_url, download=False)
-        return info["url"]
+    try:
+        ydl_opts = {"format": "bestaudio", "quiet": True}
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(video_url, download=False)
+            return info["url"]
+    except Exception as e:
+        return f"Error fetching audio: {str(e)}"
 
 
 @app.get("/get-audio", response_class=HTMLResponse)
