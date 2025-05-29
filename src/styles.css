@@ -8,3 +8,39 @@
   --shadow-custom: 0 4px 20px rgba(0, 0, 0, 0.1);
   --text-smol: 6.4px;
 }
+
+body {
+  @apply bg-oldlace font-custom m-0 flex h-screen flex-col items-center justify-center gap-y-4;
+}
+
+h1 {
+  @apply text-3xl capitalize;
+}
+
+.card {
+  @apply bg-cornsilk shadow-custom flex w-xs flex-col items-center gap-y-2 rounded-xl px-10 py-12 text-center uppercase;
+}
+
+.img-container {
+  @apply flex items-center justify-center gap-x-2.5;
+}
+
+img.hide {
+  @apply mt-9 h-14 mix-blend-multiply;
+}
+
+.glasses {
+  @apply w-24 translate-y-5 cursor-pointer mix-blend-multiply transition-all delay-[5.2s] duration-1000 ease-in;
+}
+
+.from {
+  @apply text-smol translate-y-5 normal-case transition-all delay-[5.8s] duration-1000 ease-in;
+}
+
+.balloon-container {
+  @apply pointer-events-none absolute inset-0 flex items-end justify-between overflow-hidden;
+}
+
+.balloon {
+  @apply absolute -bottom-30 -z-30 w-32;
+}

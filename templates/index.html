@@ -8,18 +8,15 @@
       href="{{ url_for('static', path='../static/tailwind.css') }}"
     />
     <script src="{{ url_for('static', path='../static/htmx.min.js') }}"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <title>BELATED HAPPY BIRTHDAY!</title>
   </head>
-  <body
-    class="bg-oldlace font-custom m-0 flex h-screen flex-col items-center justify-center gap-y-4"
-  >
-    <h1 class="pop invisible text-3xl capitalize">
-      belated happy birthday carl!
+  <body>
+    <h1 class="hide invisible">
+      belated happy birthday carl! ☭
     </h1>
     <div
-      class="bg-cornsilk shadow-custom flex w-xs flex-col items-center gap-y-2 rounded-xl px-10 py-12 text-center uppercase"
+      class="card"
     >
       {% set phrases = [ 
         {"text": "if", "size": "text-8xl font-bold", "delay": "delay-[1s]"}, 
@@ -37,70 +34,53 @@
         </p>
       {% endfor %}
 
-      <a
-        id="what"
-        hx-get="/this"
-        hx-trigger="click"
-        hx-target="#hidden"
-        hx-swap="innerHTML"
-        onclick="document.querySelectorAll('.pop').forEach(img => img.classList.remove('invisible'))"
-        class="flex items-center justify-center gap-x-2.5"
-      >
+      
+      <div class="img-container">
         <img
           src="{{ url_for('static', path='../static/images/dance.gif') }}"
           alt="glasses"
-          class="pop invisible mt-9 h-14 mix-blend-multiply"
+          class="hide invisible"
         />
-        <img
-          src="{{ url_for('static', path='../static/images/glasses.png') }}"
-          alt="glasses"
-          class="mt-5 w-24 translate-y-5 cursor-pointer opacity-0 mix-blend-multiply transition-all delay-[4s] duration-1000 ease-in"
-        />
+        <a
+          hx-get="/get-audio"
+          hx-trigger="click"
+          hx-target="#hidden"
+          hx-swap="innerHTML"
+          onclick="unhideImage()"
+        >
+          <img
+            src="{{ url_for('static', path='../static/images/glasses.png') }}"
+            alt="glasses"
+            class="glasses opacity-0"
+          />
+        </a>
         <img
           src="{{ url_for('static', path='../static/images/food.gif') }}"
           alt="glasses"
-          class="pop invisible mt-9 h-14 mix-blend-multiply"
+          class="hide invisible"
         />
-      </a>
+      </div>
+      
       <div id="hidden"></div>
       <p
-        class="text-smol translate-y-5 normal-case opacity-0 transition-all delay-[4.8s] duration-1000 ease-in"
+        class="from opacity-0"
       >
         From your BXU Bois
       </p>
     </div>
 
-    <div class="absolute inset-0 flex justify-between items-end pointer-events-none overflow-hidden" id="balloon-container">
+    <div class="balloon-container">
       {% for i in range(25) %}
         <img src="{{ url_for('static', path='../static/images/thing.gif') }}"
-             class="balloon absolute -bottom-30 w-32 -z-30"
+             class="balloon"
              style="left: {{ (i * 4) }}vw;">
       {% endfor %}
     </div>
 
 
+    <script src="{{ url_for('static', path='../static/script.js') }}" defer></script>
     <script>
       htmx.config.selfRequestsOnly = false;
-    </script>
-
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        document.querySelectorAll(".opacity-0").forEach((el) => {
-          el.classList.add("opacity-100");
-        });
-      });
-    </script>
-
-    <script>
-      gsap.to(".balloon", {
-        y: () => -window.outerHeight - Math.random() * 100, // Random floating height
-        x: "+=random(-50, 50)", // Small random left/right drift
-        scale: () => Math.random() * 0.5 + 0.75, // Random balloon size variation
-        duration: () => Math.random() * 4 + 5, // Different speeds
-        repeat: -1,
-        ease: "power1.inOut",
-        stagger: () => Math.random() * 2
-      });      
     </script>
   </body>
 </html>

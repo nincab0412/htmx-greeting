@@ -22,7 +22,7 @@ def get_audio_url(video_url):
         return info["url"]
 
 
-@app.get("/this", response_class=HTMLResponse)
+@app.get("/get-audio", response_class=HTMLResponse)
 async def get_audio():
     video_url = "https://www.youtube.com/watch?v=3BFTio5296w"
     audio_url = get_audio_url(video_url)
