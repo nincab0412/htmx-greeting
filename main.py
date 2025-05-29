@@ -18,7 +18,7 @@ async def index(request: Request):
 def get_audio_url(video_url):
     try:
         ydl_opts = {
-            "format": "bestaudio",
+            "format": "mp3",
             "quiet": True,
             "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
             "extractor_args": {"youtube": {"player_client": "android"}},
