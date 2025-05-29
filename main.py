@@ -17,7 +17,11 @@ async def index(request: Request):
 
 def get_audio_url(video_url):
     try:
-        ydl_opts = {"format": "bestaudio", "quiet": True}
+        ydl_opts = {
+            "format": "bestaudio",
+            "quiet": True,
+            "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+        }
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(video_url, download=False)
             return info["url"]
