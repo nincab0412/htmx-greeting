@@ -32,7 +32,7 @@ def get_audio_url(video_url):
 
 @app.get("/get-audio", response_class=HTMLResponse)
 async def get_audio():
-    video_url = "https://www.youtube.com/watch?v=1P5yyeeYF9o"
+    video_url = "https://www.dailymotion.com/video/x82hnx2"
     audio_url = get_audio_url(video_url)
     return HTMLResponse(
         f'<audio autoplay loop><source src="{audio_url}" type="audio/mpeg"></audio>'
