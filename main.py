@@ -21,6 +21,7 @@ def get_audio_url(video_url):
             "format": "bestaudio",
             "quiet": True,
             "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+            "extractor_args": {"youtube": {"player_client": "android"}},
         }
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(video_url, download=False)
